@@ -1,14 +1,31 @@
 <script setup>
     import { GoogleMap, Marker } from 'vue3-google-map'
+    import { ref, onMounted } from 'vue'
+    import { useRoute } from 'vue-router'
 
-    const center = { lat: 40.689247, lng: -74.044502 }
-    const markerOptions = { 
-        position: center, 
-        icon: {
-            url: 'https://icons.iconarchive.com/icons/icons-land/transporter/256/Car-Top-Red-icon.png',
-            scaledSize: { width: 50, height: 50 } 
-        } 
-    }
+    const route = useRoute()
+
+    const center = ref(null);
+    const markerOptions = ref(null);
+
+
+    onMounted(() => {
+        const lat = Number(route.query.lat)
+        const lng = Number(route.query.lng)
+        console.log(lat, lng);
+        
+        
+        center.value = { lat, lng }
+        markerOptions.value = { 
+            position: center.value, 
+            icon: {
+                url: 'https://icons.iconarchive.com/icons/icons-land/transporter/256/Car-Top-Red-icon.png',
+                scaledSize: { width: 50, height: 50 } 
+            } 
+        }
+
+    })
+    
 </script>
 
 <template>
