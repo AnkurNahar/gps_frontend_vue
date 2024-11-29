@@ -1,0 +1,77 @@
+{
+    "status": "success",
+    "data": [
+        {
+            "device_id": "6j9dYnx1Q4eoPF81f07-0k",
+            "display_name": "Alejandro",
+            "active_state": "active",
+            "lat": 34.672104,
+            "lng": -118.073318,
+            "speed": 0,
+            "drive_status": "off"
+        },
+        {
+            "device_id": "6eRi3MJEOyHxmk81f07--V",
+            "display_name": "DJ",
+            "active_state": "active",
+            "lat": 34.1600325,
+            "lng": -117.9937752,
+            "speed": 0,
+            "drive_status": "off"
+        },
+        {
+            "device_id": "6dQe8i0fNrLXp-81f07-0-",
+            "display_name": "Fabian",
+            "active_state": "active",
+            "lat": 39.010018599999995,
+            "lng": -122.0589534,
+            "speed": 0,
+            "drive_status": "off"
+        },
+        {
+            "device_id": "6eOXosw8Qrqem-81f07--V",
+            "display_name": "Francis Bs",
+            "active_state": "active",
+            "lat": 34.1101823,
+            "lng": -117.80277489999999,
+            "speed": 28.188,
+            "drive_status": "driving"
+        },
+        {
+            "device_id": "6fmwK6CTQ91Hf-81f07-0V",
+            "display_name": "Frank",
+            "active_state": "active",
+            "lat": 37.388818799999996,
+            "lng": -121.8493917,
+            "speed": 0,
+            "drive_status": "off"
+        },
+        {
+            "device_id": "6g-SS2xWNvHfh-81f07-0-",
+            "display_name": "Jaime",
+            "active_state": "active",
+            "lat": 33.9066355,
+            "lng": -117.4625312,
+            "speed": 0,
+            "drive_status": "off"
+        },
+        {
+            "device_id": "6jAOdk2wPiTjH-81f07-0k",
+            "display_name": "Mustang Angel",
+            "active_state": "active",
+            "lat": 34.299003,
+            "lng": -118.426399,
+            "speed": 0,
+            "drive_status": "off"
+        },
+        {
+            "device_id": "6fjDM4wwOK9wfk81f07--V",
+            "display_name": "Sara",
+            "active_state": "active",
+            "lat": 37.7456586,
+            "lng": -121.452055,
+            "speed": 0,
+            "drive_status": "off"
+        }
+    ]
+}
