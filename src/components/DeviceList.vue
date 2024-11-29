@@ -17,12 +17,12 @@
             const deviceURL = 'http://localhost:8080/devices'
             const deviceData = await axios.get(deviceURL, header)
             devices.value = deviceData.data.data
-            console.log(devices.value[0])
+            //console.log(devices.value[0])
 
             const preferenceURL = 'http://localhost:8080/preferences'
             const preferenceData = await axios.get(preferenceURL, header)
             prefernces.value = preferenceData.data.data
-            console.log(prefernces.value)
+            //console.log(prefernces.value)
             
 
         } catch (err) {
