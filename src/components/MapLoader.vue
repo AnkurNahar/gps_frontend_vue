@@ -31,7 +31,7 @@
 <template>
   <GoogleMap
     api-key=""
-    style="width: 100%; height: 800px"
+    style="width: 100%; height: 900px"
     :center="center"
     :zoom="18"
   >
