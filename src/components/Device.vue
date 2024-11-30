@@ -20,7 +20,7 @@
 
             <div class="flex flex-col lg:flex-row justify-between mb-4">
                 <RouterLink 
-                :to="{ path: '/map', query: { lat: device.lat, lng: device.lng } }" 
+                :to="{ path: '/map', query: { lat: device.lat, lng: device.lng, icon: device.icon } }" 
                 class="h-[36px] bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg text-center text-sm">
                 Show In Map
                 </RouterLink>

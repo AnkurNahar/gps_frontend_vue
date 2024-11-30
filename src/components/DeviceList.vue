@@ -33,14 +33,38 @@
             user_device_icons.value = prefernces.value.user_device_icons
             //console.log(prefernces.value)
             
+            //preferences
+            //removing hidden devices
             hiddenDevices.value = devices.value.filter(device => hidden_device_ids.value.includes(device.device_id))
             devices.value = devices.value.filter(device => !hidden_device_ids.value.includes(device.device_id))
             //console.log(hiddenDevices.value)
+
+            //adding saved icons
+            devices.value = devices.value.map(device => ({
+                ...device,
+                icon: user_device_icons.value[device.device_id] || 'https://icons.iconarchive.com/icons/icons-land/transporter/256/Car-Top-Red-icon.png'
+            }))
+
+            //sort
+            devices.value = getSorted(sort_by.value, devices.value)
 
         } catch (err) {
             console.error('error fetching data: ', err);            
         }
     })
+
+    const getSorted = (property, devices) => {
+        devices.sort((a, b) => {
+            if (typeof a[property] === "string") {
+                //sorting by display_name
+                return a[property].localeCompare(b[property])
+            } else if (typeof a[property] === "number") {
+                //sorting by speed
+                return a[property] - b[property]
+            }
+            return 0
+        })
+    }
 
 </script>
 
