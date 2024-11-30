@@ -5,14 +5,14 @@
 
     const route = useRoute()
 
-    const center = ref(null);
-    const markerOptions = ref(null);
+    const center = ref({});
+    const markerOptions = ref({});
 
 
     onMounted(() => {
         const lat = Number(route.query.lat)
         const lng = Number(route.query.lng)
-        console.log(lat, lng);
+        //console.log(lat, lng);
         
         
         center.value = { lat, lng }

@@ -3,11 +3,17 @@
     import { ref, onMounted } from 'vue'
     import axios from 'axios'
 
-    const devices = ref([])  
+    const devices = ref([]) 
+    const hiddenDevices = ref([]) 
     const prefernces = ref({})
+
+    const hidden_device_ids = ref([])
+    const sort_by = ref('')
+    const user_device_icons = ref({})
 
     onMounted(async() => {
         try {
+
             const header = {
                 headers: {
                     'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySUQiOiJhbkBnbWFpbC5jb20ifQ.LSrCDaXUkZNOrf0YtemRZw3xpz-w2vbMgcaC4P0qfRM'
@@ -22,8 +28,14 @@
             const preferenceURL = 'http://localhost:8080/preferences'
             const preferenceData = await axios.get(preferenceURL, header)
             prefernces.value = preferenceData.data.data
+            hidden_device_ids.value = prefernces.value.hidden_device_ids
+            sort_by.value = prefernces.value.sort_by
+            user_device_icons.value = prefernces.value.user_device_icons
             //console.log(prefernces.value)
             
+            hiddenDevices.value = devices.value.filter(device => hidden_device_ids.value.includes(device.device_id))
+            devices.value = devices.value.filter(device => !hidden_device_ids.value.includes(device.device_id))
+            //console.log(hiddenDevices.value)
 
         } catch (err) {
             console.error('error fetching data: ', err);            
