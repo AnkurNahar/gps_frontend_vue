@@ -64,6 +64,7 @@
             }
             return 0
         })
+        return devices
     }
 
 </script>
