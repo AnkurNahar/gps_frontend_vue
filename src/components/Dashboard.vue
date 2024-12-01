@@ -1,27 +1,27 @@
 <script setup>
-    import { RouterLink } from 'vue-router'
     import { ref, onMounted } from 'vue'
     import axios from 'axios'
     import InfoCard from './InfoCard.vue'
     import Table from './Table.vue'
+    import Sort from './Sort.vue'
 
     const devices = ref([]) 
     const hiddenDevices = ref([]) 
-    const prefernces = ref({})
+    const preferences = ref({})
 
     const hidden_device_ids = ref([])
     const sort_by = ref('')
     const user_device_icons = ref({})
     const active_devices = ref(0)
 
+    const header = {
+        headers: {
+          'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySUQiOiJhbkBnbWFpbC5jb20ifQ.LSrCDaXUkZNOrf0YtemRZw3xpz-w2vbMgcaC4P0qfRM'
+        }
+    }
+
     onMounted(async() => {
         try {
-
-            const header = {
-                headers: {
-                    'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySUQiOiJhbkBnbWFpbC5jb20ifQ.LSrCDaXUkZNOrf0YtemRZw3xpz-w2vbMgcaC4P0qfRM'
-                }
-            }
 
             const deviceURL = 'http://localhost:8080/devices'
             const deviceData = await axios.get(deviceURL, header)
@@ -30,11 +30,10 @@
 
             const preferenceURL = 'http://localhost:8080/preferences'
             const preferenceData = await axios.get(preferenceURL, header)
-            prefernces.value = preferenceData.data.data
-            hidden_device_ids.value = prefernces.value.hidden_device_ids
-            sort_by.value = prefernces.value.sort_by
-            user_device_icons.value = prefernces.value.user_device_icons
-            //console.log(prefernces.value)
+            preferences.value = preferenceData.data.data
+            hidden_device_ids.value = preferences.value.hidden_device_ids
+            sort_by.value = preferences.value.sort_by
+            user_device_icons.value = preferences.value.user_device_icons
 
             //active count
             active_devices.value = devices.value.filter(device => device.active_state === 'active').length
@@ -52,12 +51,14 @@
             }))
 
             //sort
-            devices.value = getSorted(sort_by.value, devices.value)
+            getSorted(sort_by.value, devices.value)
 
         } catch (err) {
             console.error('error fetching data: ', err);            
         }
     })
+
+
 
     const getSorted = (property, devices) => {
         devices.sort((a, b) => {
@@ -70,7 +71,19 @@
             }
             return 0
         })
-        return devices
+        devices.value = devices
+    }
+
+
+    const handleSortingUpdate = async(new_sort_by) => {
+      try {
+        getSorted(new_sort_by, devices.value)
+        preferences.value.sort_by = new_sort_by
+        const preferenceURL = 'http://localhost:8080/preferences'
+        await axios.post(preferenceURL, preferences.value, header)
+      } catch (error) {
+        console.error(error);        
+      }
     }
 
 </script>
@@ -91,6 +104,10 @@
             <InfoCard :details="{name: 'Hidden Devices', count: hiddenDevices.length }" />
           </div>
         </div>
+
+        <div class="mt-8" />
+
+        <Sort :sort_by="sort_by" @update-sorting="handleSortingUpdate"/>
 
         <div class="mt-8" />
 

@@ -3,7 +3,7 @@
 
     defineProps({
         device: Object
-    });
+    })
 </script>
 
 <template>

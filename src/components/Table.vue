@@ -1,14 +1,15 @@
 
 <script setup>
     defineProps({
-        devices: []
+        devices: Array
     });
 </script>
 
 <template>
-    <table class="min-w-full">
-            <thead>
-              <tr>
+
+    <table class="min-w-full">            
+        <thead>              
+            <tr>
                 <th
                   class="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50"
                 >
@@ -44,11 +45,11 @@
                 >
                   Change Icon
                 </th>
-              </tr>
-            </thead>
+            </tr>
+        </thead>
 
-            <tbody class="bg-white">
-              <tr v-for="device in devices" :key="device.device_id">
+        <tbody class="bg-white">
+            <tr v-for="device in devices" :key="device.device_id">
                 <td
                   class="px-6 py-4 text-sm font-medium leading-5 text-gray-900 border-b border-gray-200 whitespace-nowrap"
                 >
@@ -96,7 +97,8 @@
                 >
                  Change Icon
                 </td>
-              </tr>
-            </tbody>
-          </table>
+            </tr>
+        </tbody>
+    </table>
+
 </template>
