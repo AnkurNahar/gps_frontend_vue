@@ -40,8 +40,8 @@
             v-model="form.sorting"
             required
           >
-            <option value="display_name">name</option>
-            <option value="speed">speed</option>
+            <option value="display_name" :selected="props.sort_by === 'display_name'">name</option>
+            <option value="speed" :selected="props.sort_by === 'speed'">speed</option>
           </select>
         </div>
       </form>
