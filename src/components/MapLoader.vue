@@ -12,6 +12,7 @@
     onMounted(() => {
         const lat = Number(route.query.lat)
         const lng = Number(route.query.lng)
+        const img = route.query.icon
         //console.log(lat, lng);
         
         
@@ -19,7 +20,7 @@
         markerOptions.value = { 
             position: center.value, 
             icon: {
-                url: 'https://icons.iconarchive.com/icons/icons-land/transporter/256/Car-Top-Red-icon.png',
+                url: img,
                 scaledSize: { width: 50, height: 50 } 
             } 
         }

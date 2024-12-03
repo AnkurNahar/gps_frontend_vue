@@ -4,6 +4,7 @@
     import InfoCard from './InfoCard.vue'
     import Table from './Table.vue'
     import Sort from './Sort.vue'
+    import Navbar from './Navbar.vue'
 
     const devices = ref([]) 
     const hiddenDevices = ref([]) 
@@ -109,12 +110,10 @@
 
 
 <template>
+  <Navbar :title="'Dashboard'"/>
   <section class="bg-blue-50 px-4 py-10">
     <div class="container-xl lg:container m-auto">
       <div class="bg-blue-50">
-        <h3 class="text-3xl font-medium text-gray-700">
-          Dashboard
-        </h3>
 
         <div class="mt-4">
           <div class="flex flex-wrap -mx-6">
