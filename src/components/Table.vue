@@ -1,8 +1,18 @@
-
 <script setup>
+    const emit = defineEmits(['hide-device'])
+
     defineProps({
         devices: Array
-    });
+    })
+
+    const handleHideClick = (device_id) => {
+        try {
+            emit('hide-device', device_id)           
+        } catch (error) {
+            console.error(error);
+            
+        }
+    }
 </script>
 
 <template>
@@ -89,6 +99,7 @@
                 </td>
                 <td
                   class="px-6 py-4 text-sm font-medium leading-5 text-indigo-600 hover:text-indigo-900 border-b border-gray-200 whitespace-nowrap"
+                  @click="handleHideClick(device.device_id)"
                 >
                   Hide
                 </td>

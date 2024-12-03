@@ -86,6 +86,25 @@
       }
     }
 
+    const handleHidingDevice = async(device_id) => {
+      try {
+        console.log(device_id);
+        
+        //updating device list and hidden device list
+        let newHiddenDevices = devices.value.filter(device => device.device_id == device_id)
+        hiddenDevices.value = [...hiddenDevices.value, ...newHiddenDevices]
+        hidden_device_ids.value = hiddenDevices.value.map(device => device.device_id)
+        devices.value = devices.value.filter(device => !hidden_device_ids.value.includes(device.device_id))
+
+        //updating preferences
+        preferences.value.hidden_device_ids = hidden_device_ids.value
+        const preferenceURL = 'http://localhost:8080/preferences'
+        await axios.post(preferenceURL, preferences.value, header)
+      } catch (error) {
+        console.error(error);        
+      }
+    }
+
 </script>
 
 
@@ -116,7 +135,7 @@
             <div
               class="inline-block min-w-full overflow-hidden align-middle border-b border-gray-200 shadow sm:rounded-lg"
             >
-              <Table :devices="devices"/>
+              <Table :devices="devices" @hide-device="handleHidingDevice"/>
             </div>
           </div>
         </div>
