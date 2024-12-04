@@ -5,15 +5,19 @@
     import Table from './Table.vue'
     import Sort from './Sort.vue'
     import Navbar from './Navbar.vue'
+    import { useDataStore } from '../store'
 
     const devices = ref([]) 
     const hiddenDevices = ref([]) 
+    const activeDevices = ref([]) 
     const preferences = ref({})
 
     const hidden_device_ids = ref([])
     const sort_by = ref('')
     const user_device_icons = ref({})
-    const active_devices = ref(0)
+    const active_device_count = ref(0)
+
+    const store = useDataStore()
 
     const header = {
         headers: {
@@ -37,7 +41,8 @@
             user_device_icons.value = preferences.value.user_device_icons
 
             //active count
-            active_devices.value = devices.value.filter(device => device.active_state === 'active').length
+            activeDevices.value = devices.value.filter(device => device.active_state === 'active')
+            active_device_count.value = activeDevices.value.length
             
             //preferences
             //removing hidden devices
@@ -119,6 +124,31 @@
       }
     }
 
+    const setTotalDeviceData = () => {
+      try {
+        let totalDevices = [...devices.value, ...hiddenDevices.value]
+        store.setItems(totalDevices)
+      } catch (error) {
+        console.error(error)
+      }
+    }
+
+    const setActiveDeviceData = () => {
+      try {
+        store.setItems(activeDevices.value)
+      } catch (error) {
+        console.error(error)
+      }
+    }
+
+    const setHiddenDeviceData = () => {
+      try {
+        store.setItems(hiddenDevices.value)
+      } catch (error) {
+        console.error(error)
+      }
+    }
+
 </script>
 
 
@@ -130,9 +160,37 @@
 
         <div class="mt-4">
           <div class="flex flex-wrap -mx-6">
-            <InfoCard :details="{ name: 'Total Devices', count: devices.length + hiddenDevices.length }"/>
-            <InfoCard :details="{ name: 'Active Now', count: active_devices }" />      
-            <InfoCard :details="{name: 'Hidden Devices', count: hiddenDevices.length }" />
+
+            <div class="w-full px-6 sm:w-1/2 xl:w-1/3">
+                <router-link
+                    @click="setTotalDeviceData"
+                    class="flex items-center px-5 py-6 bg-white rounded-md shadow-sm hover:bg-indigo-100"
+                    to="/total-devices"
+                >
+                  <InfoCard :details="{ name: 'Total Devices', count: devices.length + hiddenDevices.length }"/>                    
+                </router-link>
+            </div>
+
+            <div class="w-full px-6 sm:w-1/2 xl:w-1/3">
+                <router-link
+                    @click="setActiveDeviceData"
+                    class="flex items-center px-5 py-6 bg-white rounded-md shadow-sm hover:bg-indigo-100"
+                    to="/active-devices"
+                >
+                  <InfoCard :details="{ name: 'Active Now', count: active_device_count }"/>                    
+                </router-link>
+            </div>
+           
+            <div class="w-full px-6 sm:w-1/2 xl:w-1/3">
+                <router-link
+                    @click="setHiddenDeviceData"
+                    class="flex items-center px-5 py-6 bg-white rounded-md shadow-sm hover:bg-indigo-100"
+                    to="/active-devices"
+                >
+                  <InfoCard :details="{ name: 'Hidden Devices', count: hiddenDevices.length }"/>                    
+                </router-link>
+            </div>
+            
           </div>
         </div>
 
