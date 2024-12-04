@@ -89,7 +89,7 @@
 
     const handleHidingDevice = async(device_id) => {
       try {
-        console.log(device_id);
+        //console.log(device_id);
         
         //updating device list and hidden device list
         let newHiddenDevices = devices.value.filter(device => device.device_id == device_id)
@@ -102,7 +102,20 @@
         const preferenceURL = 'http://localhost:8080/preferences'
         await axios.post(preferenceURL, preferences.value, header)
       } catch (error) {
-        console.error(error);        
+        console.error(error)        
+      }
+    }
+
+    const handleIconChange = async(icon_change_info) => {
+      try {
+        //console.log(icon_change_info);
+        
+        user_device_icons.value[icon_change_info.device_id] = icon_change_info.icon_url
+        preferences.value.user_device_icons = user_device_icons.value
+        const preferenceURL = 'http://localhost:8080/preferences'
+        await axios.post(preferenceURL, preferences.value, header)
+      } catch (error) {
+        console.error(error)        
       }
     }
 
@@ -134,7 +147,7 @@
             <div
               class="inline-block min-w-full overflow-hidden align-middle border-b border-gray-200 shadow sm:rounded-lg"
             >
-              <Table :devices="devices" @hide-device="handleHidingDevice"/>
+              <Table :devices="devices" @hide-device="handleHidingDevice" @change-icon-url="handleIconChange" />
             </div>
           </div>
         </div>
