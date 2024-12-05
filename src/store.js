@@ -21,6 +21,9 @@ export const useDataStore = defineStore('myStore', {
     setPreferences(newPreferences) {
       this.preferences = newPreferences
     },
-
+    setAuthToken(newToken) {
+      this.authToken = newToken
+    },
+    
   },
 })

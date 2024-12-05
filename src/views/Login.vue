@@ -1,11 +1,16 @@
 <script setup>
     import { ref } from "vue"
+    import axios from 'axios'
+    import { useDataStore } from '../store'
+    import { useRouter } from "vue-router";
+
+    const store = useDataStore()
+    const router = useRouter()
   
     const form = ref({
         email: "",
     })
-      
-  
+       
     const errors = ref({
         email: null,
     })
@@ -13,26 +18,36 @@
     const isSubmitting = ref(false)
   
     const validateEmail = () => {
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
         if (!form.value.email) {
-          errors.value.email = "Email is required";
+          errors.value.email = "Email is required"
         } else if (!emailRegex.test(form.value.email)) {
-          errors.value.email = "Invalid email format";
+          errors.value.email = "Invalid email format"
         } else {
-          errors.value.email = null;
+          errors.value.email = null
         }
     }
   
-    const handleSubmit = () => {
+    const handleSubmit = async() => {
         validateEmail()
-  
+
         if (!errors.value.email) {
-          isSubmitting.value = true;
+          isSubmitting.value = true
           setTimeout(() => {
-            alert("Login successful!");
-            isSubmitting.value = false;
-          }, 1500);
+            //alert("Login successful!")
+            isSubmitting.value = false
+          }, 1500)
         }
+  
+        const header = {
+            headers: {
+                'UserID': form.value.email
+            }
+        }
+        const URL = 'http://localhost:8080/login'
+        const tokenData = await axios.get(URL, header)
+        store.setAuthToken(tokenData.data.data.authToken)
+        router.push({ name: 'home' })
     }
   
   </script>
