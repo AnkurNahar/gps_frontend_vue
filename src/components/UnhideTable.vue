@@ -29,7 +29,7 @@
 </script>
 
 <template>
-    <table class="min-w-full">            
+    <table v-if="devices.length > 0" class="min-w-full">            
         <thead>              
             <tr>
                 <th class="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50">
@@ -89,4 +89,7 @@
             </tr>
         </tbody>
     </table>
+    <div v-else class="container-xl lg:container m-auto items-center">
+      <h1>Nothing to show</h1>
+    </div>
 </template>
