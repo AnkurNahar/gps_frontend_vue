@@ -6,8 +6,6 @@
 <template>
     <Navbar :title="'Total Devices'"/>
 
-    <div class="mt-8" />
-
     <section class="bg-blue-50 px-10 py-20">
         <div class="container-xl lg:container m-auto">
             <div class="bg-blue-50">

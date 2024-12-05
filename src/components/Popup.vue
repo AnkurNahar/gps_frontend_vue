@@ -38,7 +38,7 @@
         class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50"
       >
         <div class="bg-white p-6 rounded-lg shadow-lg w-96">
-          <h2 class="text-lg font-bold mb-4">Popup Form</h2>
+          <h2 class="text-lg font-bold mb-4">Change Icon</h2>
           <form @submit.prevent="submitForm">
             <div class="mb-4">
               <label for="icon_url" class="block text-sm font-medium text-gray-700">
