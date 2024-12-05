@@ -2,12 +2,25 @@ import { defineStore } from 'pinia';
 
 export const useDataStore = defineStore('myStore', {
   state: () => ({
-    items: [], 
+
+    devices: [], 
+    preferences: {
+      sort_by: "",
+      hidden_device_ids: [],
+      hidden_device_icons: {}
+    },
+    authToken: "",
+    
   }),
   
   actions: {
-    setItems(newItems) {
-      this.items = newItems
+
+    setDevices(newDevices) {
+      this.devices = newDevices
     },
+    setPreferences(newPreferences) {
+      this.preferences = newPreferences
+    },
+
   },
 })

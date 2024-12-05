@@ -36,6 +36,7 @@
             const preferenceURL = 'http://localhost:8080/preferences'
             const preferenceData = await axios.get(preferenceURL, header)
             preferences.value = preferenceData.data.data
+            store.setPreferences(preferences.value)
             hidden_device_ids.value = preferences.value.hidden_device_ids
             sort_by.value = preferences.value.sort_by
             user_device_icons.value = preferences.value.user_device_icons
@@ -85,8 +86,7 @@
       try {
         getSorted(new_sort_by, devices.value)
         preferences.value.sort_by = new_sort_by
-        const preferenceURL = 'http://localhost:8080/preferences'
-        await axios.post(preferenceURL, preferences.value, header)
+        await updatePreferences()
       } catch (error) {
         console.error(error);        
       }
@@ -104,8 +104,7 @@
 
         //updating preferences
         preferences.value.hidden_device_ids = hidden_device_ids.value
-        const preferenceURL = 'http://localhost:8080/preferences'
-        await axios.post(preferenceURL, preferences.value, header)
+        await updatePreferences()
       } catch (error) {
         console.error(error)        
       }
@@ -117,8 +116,7 @@
         
         user_device_icons.value[icon_change_info.device_id] = icon_change_info.icon_url
         preferences.value.user_device_icons = user_device_icons.value
-        const preferenceURL = 'http://localhost:8080/preferences'
-        await axios.post(preferenceURL, preferences.value, header)
+        await updatePreferences()
       } catch (error) {
         console.error(error)        
       }
@@ -127,7 +125,7 @@
     const setTotalDeviceData = () => {
       try {
         let totalDevices = [...devices.value, ...hiddenDevices.value]
-        store.setItems(totalDevices)
+        store.setDevices(totalDevices)
       } catch (error) {
         console.error(error)
       }
@@ -135,7 +133,7 @@
 
     const setActiveDeviceData = () => {
       try {
-        store.setItems(activeDevices.value)
+        store.setDevices(activeDevices.value)
       } catch (error) {
         console.error(error)
       }
@@ -143,9 +141,19 @@
 
     const setHiddenDeviceData = () => {
       try {
-        store.setItems(hiddenDevices.value)
+        store.setDevices(hiddenDevices.value)
       } catch (error) {
         console.error(error)
+      }
+    }
+
+    const updatePreferences = async() => {
+      try {
+        store.setPreferences(preferences.value)
+        const preferenceURL = 'http://localhost:8080/preferences'
+        await axios.post(preferenceURL, preferences.value, header)
+      } catch (error) {
+        console.error(error)        
       }
     }
 
@@ -185,7 +193,7 @@
                 <router-link
                     @click="setHiddenDeviceData"
                     class="flex items-center px-5 py-6 bg-white rounded-md shadow-sm hover:bg-indigo-100"
-                    to="/active-devices"
+                    to="/hidden-devices"
                 >
                   <InfoCard :details="{ name: 'Hidden Devices', count: hiddenDevices.length }"/>                    
                 </router-link>
