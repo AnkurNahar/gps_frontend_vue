@@ -12,11 +12,16 @@ See [Vite Configuration Reference](https://vite.dev/config/)
 npm install
 ```
 
-### Compile and Hot-Reload for Development
+### Compile and Hot-Reload for Development:
 
 ```sh
 npm run dev
 ```
+# Testing on local machine
+
+- using port 3000 (default):
+  (local host)[http://localhost:3000/]
+  (with vue dev tools)[http://localhost:3000/__devtools__/]
 
 ### Compile and Minify for Production
 
