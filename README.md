@@ -4,7 +4,7 @@ This relies on [gps_backend written in go](https://github.com/etherbiswas/gps_ba
 
 ## Customize configuration
 
-See [Vite Configuration Reference](https://vite.dev/config/).
+See [Vite Configuration Reference](https://vite.dev/config/)
 
 ## Project Setup
 
