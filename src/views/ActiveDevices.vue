@@ -4,7 +4,7 @@
 </script>
 
 <template>
-    <Navbar :title="'Active Devices'"/>
+    <Navbar :title="'Active Devices'" :home="0"/>
 
     <section class="bg-blue-50 px-10 py-20">
         <div class="container-xl lg:container m-auto">

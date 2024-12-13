@@ -1,14 +1,22 @@
 <script setup>
   import { ref } from 'vue'
+  import { useRouter } from "vue-router"
 
-  defineProps({
-      title: String
+  const router = useRouter()
+
+  const props = defineProps({
+      title: String,
+      home: Number
   })
 
   const dropdownOpen = ref(false)
 
   const logout = () => {
     localStorage.removeItem('authToken')
+  }
+
+  const goBack = () => {
+    router.go(-1)
   }
 </script>
 
@@ -17,6 +25,12 @@
     class="flex items-center justify-between px-6 py-4 bg-white border-b-4 border-indigo-600"
   >
     <div class="flex items-center">
+      <button v-if="!home" 
+      @click="goBack"
+      class="block z-20 w-10 h-15 overflow-hidden focus:outline-none text-indigo-600">
+        <i class="pi pi-angle-left" style="font-size: 1.5rem"></i>
+      </button>
+
       <button
         class="text-gray-500 focus:outline-none lg:hidden"
         @click="isOpen = true"
