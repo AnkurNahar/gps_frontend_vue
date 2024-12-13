@@ -46,6 +46,7 @@
         }
         const URL = 'http://localhost:8080/login'
         const tokenData = await axios.get(URL, header)
+        localStorage.setItem('authToken', tokenData.data.data.authToken)
         store.setAuthToken(tokenData.data.data.authToken)
         router.push({ name: 'home' })
     }

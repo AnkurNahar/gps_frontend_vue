@@ -1,11 +1,15 @@
 <script setup>
-import { ref } from 'vue'
+  import { ref } from 'vue'
 
-defineProps({
-    title: String
-})
+  defineProps({
+      title: String
+  })
 
-const dropdownOpen = ref(false)
+  const dropdownOpen = ref(false)
+
+  const logout = () => {
+    localStorage.removeItem('authToken')
+  }
 </script>
 
 <template>
@@ -68,6 +72,7 @@ const dropdownOpen = ref(false)
             class="absolute right-0 z-20 w-48 py-2 mt-2 bg-white rounded-md shadow-xl"
           >
             <router-link
+              @click="logout"
               to="/"
               class="block px-4 py-2 text-sm text-gray-700 hover:bg-indigo-600 hover:text-white"
             >

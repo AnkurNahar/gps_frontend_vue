@@ -9,7 +9,7 @@ export const useDataStore = defineStore('myStore', {
       hidden_device_ids: [],
       hidden_device_icons: {}
     },
-    authToken: "",
+    authToken: localStorage.getItem('authToken') || '',
     
   }),
   

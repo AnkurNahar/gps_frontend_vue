@@ -13,7 +13,7 @@
     const preferences = ref({})
 
     const hidden_device_ids = ref([])
-    const sort_by = ref('')
+    const sort_by = ref(null)
     const user_device_icons = ref({})
     const active_device_count = ref(0)
 
@@ -28,18 +28,22 @@
     onMounted(async() => {
         try {
 
-            const deviceURL = 'http://localhost:8080/devices'
-            const deviceData = await axios.get(deviceURL, header)
-            devices.value = deviceData.data.data
-            //console.log(devices.value[0])
-
             const preferenceURL = 'http://localhost:8080/preferences'
             const preferenceData = await axios.get(preferenceURL, header)
             preferences.value = preferenceData.data.data
             store.setPreferences(preferences.value)
             hidden_device_ids.value = preferences.value.hidden_device_ids
-            sort_by.value = preferences.value.sort_by
+            sort_by.value = ['display_name', 'speed'].includes(preferences.value.sort_by) ? preferences.value.sort_by : 'display_name'
             user_device_icons.value = preferences.value.user_device_icons
+
+            const deviceURL = 'http://localhost:8080/devices'
+            const deviceData = await axios.get(deviceURL, header)
+            
+            devices.value = deviceData.data.data
+            //console.log(devices.value[0])
+
+            //sorted
+            getSorted(sort_by.value, devices.value)
 
             //active count
             activeDevices.value = devices.value.filter(device => device.active_state === 'active')
@@ -56,9 +60,6 @@
                 ...device,
                 icon: user_device_icons.value[device.device_id] || 'https://icons.iconarchive.com/icons/icons-land/transporter/256/Car-Top-Red-icon.png'
             }))
-
-            //sort
-            getSorted(sort_by.value, devices.value)
 
         } catch (err) {
             console.error('error fetching data: ', err);            

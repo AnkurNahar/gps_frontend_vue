@@ -1,21 +1,27 @@
 <script setup>
-    import { reactive } from 'vue'
+    import { watch, ref } from 'vue'
     
     const emit = defineEmits(['update-sorting'])
 
     const props = defineProps({
-        sort_by: String,
+        sort_by: {
+          type: String,
+          required: true,
+          default: "display_name"
+        }
     })    
-    
-    const form = reactive({
-        sorting: `${props.sort_by}`
-    })
 
-    console.log(form.sorting);
+    const sorting = ref(props.sort_by)
+
+    watch(() => props.sort_by, (newValue) => { sorting.value = newValue }, { immediate: true })
+    
+    /* const form = reactive({
+        sorting: `${props.sort_by}`
+    }) */
 
     const handleChange = () => {
         try {
-            emit('update-sorting', form.sorting)           
+            emit('update-sorting', sorting.value)           
         } catch (error) {
             console.error(error);
             
@@ -37,11 +43,12 @@
             id="sorting"
             name="sorting"
             class="border rounded w-full py-2 px-3"
-            v-model="form.sorting"
+            v-model="sorting"
             required
           >
-            <option value="display_name" :selected="props.sort_by === 'display_name'">name</option>
-            <option value="speed" :selected="props.sort_by === 'speed'">speed</option>
+          <!--:selected="props.sort_by === 'display_name'"-->
+            <option value="display_name">name</option>
+            <option value="speed" >speed</option>
           </select>
         </div>
       </form>
